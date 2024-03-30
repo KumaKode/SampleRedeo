@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
 app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "static/index.html"));
+  res.sendFile(path.resolve(__dirname, "static/index.html"));
 });
 
 app.use("/api", apiRoutes);

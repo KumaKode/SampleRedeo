@@ -18,8 +18,8 @@ async function createCity(req, res) {
 
 async function getCities(req, res) {
   try {
-    const airplanes = await CityService.getCities();
-    SuccessResponse.data = airplanes;
+    const cities = await CityService.getCities();
+    SuccessResponse.data = cities;
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;

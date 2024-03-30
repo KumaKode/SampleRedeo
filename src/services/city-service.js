@@ -28,8 +28,8 @@ async function createCity(data) {
 
 async function getCities() {
   try {
-    const airplanes = await cityRepository.findAll();
-    return airplanes;
+    const cities = await cityRepository.findAll();
+    return cities;
   } catch (error) {
     throw new AppError(
       "Cannot fetch data of all the Cities",
