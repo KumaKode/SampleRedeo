@@ -57,7 +57,7 @@ passport.use(
       clientID: ServerConfig.GOOGLE_CLIENT_ID,
       clientSecret: ServerConfig.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.NODE_ENV
-        ? PROD_GOOGLE_CALL_BACK_URL
+        ? process.env.PROD_GOOGLE_CALL_BACK_URL
         : ServerConfig.GOOGLE_CALL_BACK_URL,
       //passReqToCallback: true,
     },
@@ -102,7 +102,7 @@ passport.use(
       clientID: ServerConfig.LINKEDIN_KEY,
       clientSecret: ServerConfig.LINKEDIN_SECRET,
       callbackURL: process.env.NODE_ENV
-        ? PROD_LINKEDIN_CALL_BACK_URL
+        ? process.env.PROD_LINKEDIN_CALL_BACK_URL
         : ServerConfig.LINKEDIN_CALL_BACK_URL,
     },
     async function (accessToken, refreshToken, profile, done) {
