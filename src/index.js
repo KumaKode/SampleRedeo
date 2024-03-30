@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const cors = require("cors");
+const path = require("path");
 
 const { ServerConfig, Logger } = require("./config");
 const apiRoutes = require("./routes");
@@ -10,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "static/index.html"));
+});
 
 app.use("/api", apiRoutes);
 
