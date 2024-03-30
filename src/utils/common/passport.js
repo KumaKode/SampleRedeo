@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const { ServerConfig } = require("../../config");
 const { UserService } = require("../../services");
@@ -55,7 +56,9 @@ passport.use(
     {
       clientID: ServerConfig.GOOGLE_CLIENT_ID,
       clientSecret: ServerConfig.GOOGLE_CLIENT_SECRET,
-      callbackURL: ServerConfig.GOOGLE_CALL_BACK_URL,
+      callbackURL: process.env.NODE_ENV
+        ? PROD_GOOGLE_CALL_BACK_URL
+        : ServerConfig.GOOGLE_CALL_BACK_URL,
       //passReqToCallback: true,
     },
     async function (accessToken, refreshToken, profile, cb) {
@@ -98,7 +101,9 @@ passport.use(
     {
       clientID: ServerConfig.LINKEDIN_KEY,
       clientSecret: ServerConfig.LINKEDIN_SECRET,
-      callbackURL: ServerConfig.LINKEDIN_CALLBACK_URL,
+      callbackURL: process.env.NODE_ENV
+        ? PROD_LINKEDIN_CALL_BACK_URL
+        : ServerConfig.LINKEDIN_CALL_BACK_URL,
     },
     async function (accessToken, refreshToken, profile, done) {
       try {

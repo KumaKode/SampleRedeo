@@ -4,8 +4,8 @@ require("dotenv").config();
 module.exports = {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": process.env.LOCAL_DB_PASSWORD,
+    "database": "Redeo",
     "host": "127.0.0.1",
     "dialect": "mysql"
 },
@@ -16,12 +16,12 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "mysql"
 },
-"production": {
-    "username": process.env.MYSQLUSER || "root",
-    "password": process.env.MYSQLPASSWORD || null,
-    "database": process.env.MYSQLDATABASE || "database_production",
-    "host": process.env.MYSQLHOST || "127.0.0.1",
-    "port": process.env.MYSQLPORT || "3306",
+"production": { // These env variables come from production environment(Now: Railway), probably database(MySQL) image. NOTE: these must be have in backend image too!
+    "username": process.env.MYSQLUSER,
+    "password": process.env.MYSQLPASSWORD,
+    "database": process.env.MYSQLDATABASE,
+    "host": process.env.MYSQLHOST,
+    "port": process.env.MYSQLPORT,
     "dialect": "mysql"
 }
 };
