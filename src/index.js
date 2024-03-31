@@ -16,7 +16,14 @@ app.use(passport.initialize());
 
 app.use("/api", apiRoutes);
 
+app.use("/static", express.static(path.join(__dirname, "static")));
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "static/index.html"));
+});
+
 app.listen(ServerConfig.PORT, () => {
   console.log("Sucessfully started");
+  console.log(`Listening on port http://localhost:${ServerConfig.PORT}`);
   Logger.info("Successfully started the server");
 });
