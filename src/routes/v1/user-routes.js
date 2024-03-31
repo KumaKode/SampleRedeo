@@ -34,7 +34,8 @@ router.get(
   passport.authenticate("google", {
     session: false,
     successRedirect: "/",
-  })
+  }),
+  function (req, res) {}
 );
 
 router.get(
