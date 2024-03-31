@@ -33,13 +33,14 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     session: false,
-  }),
-  function (req, res) {
-    console.log(req.user);
-    console.log(req.isAuthenticated());
-    // Successful authentication, redirect home.
-    res.send("done");
-  }
+    successRedirect: "/",
+  })
+  // function (req, res) {
+  //   console.log(req.user);
+  //   console.log(req.isAuthenticated());
+  //   // Successful authentication, redirect home.
+  //   res.send("done");
+  // }
 );
 
 router.get(
