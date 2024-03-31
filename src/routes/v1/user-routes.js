@@ -35,12 +35,6 @@ router.get(
     session: false,
     successRedirect: "/",
   })
-  // function (req, res) {
-  //   console.log(req.user);
-  //   console.log(req.isAuthenticated());
-  //   // Successful authentication, redirect home.
-  //   res.send("done");
-  // }
 );
 
 router.get(
