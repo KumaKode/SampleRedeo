@@ -1,6 +1,5 @@
 const express = require("express");
 const passport = require("passport");
-const session = require("cookie-session");
 const cors = require("cors");
 const path = require("path");
 
@@ -11,17 +10,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  session({
-    secret: ServerConfig.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-    },
-  })
-);
 
 app.use(cors());
 app.use(passport.initialize());

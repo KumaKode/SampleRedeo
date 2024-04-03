@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { otpGen } = require("otp-gen-agent");
+const bcrypt = require("bcrypt");
 
 const { UserRepository, TypeRepository } = require("../repositories");
 
@@ -13,23 +14,34 @@ const typeRepository = new TypeRepository();
 
 async function signup(data) {
   try {
-    const usr = await userRepository.getUserByEmail(data.email);
-    if (usr) throw new AppError("User already exists!", StatusCodes.CONFLICT);
-    const user = await userRepository.create(data);
+    let user;
+    if (data.socialLogin) {
+      user = await userRepository.create({
+        name: data.given_name,
+        email: data.email,
+        password: bcrypt.hashSync(data.sub, +ServerConfig.SALT_ROUNDS),
+        emailVerified: true,
+        socialLogin: data.socialLogin,
+        profilePicture: data.picture,
+      });
+    } else {
+      user = await userRepository.create(data);
+    }
+
     const type = await typeRepository.getTypeByName("jobSeeker");
     user.addType(type);
 
-    const otp = await otpService.createOTP({
-      userId: user.id,
-      otp: await otpGen(),
-    });
+    // const otp = await otpService.createOTP({
+    //   userId: user.id,
+    //   otp: await otpGen(),
+    // });
 
-    const template = createTemplate({ name: user.name, otp: otp.otp });
+    // const template = createTemplate({ name: user.name, otp: otp.otp });
 
-    await otpService.sendOTP({
-      email: user.email,
-      template: template,
-    });
+    // await otpService.sendOTP({
+    //   email: user.email,
+    //   template: template,
+    // });
 
     return user;
   } catch (error) {
@@ -44,13 +56,23 @@ async function signup(data) {
 async function signin(data) {
   try {
     const user = await userRepository.getUserByEmail(data.email);
+
     if (!user) {
-      throw new AppError("Not able to find the user", StatusCodes.NOT_FOUND);
+      const newUser = await signup(data);
+      const jwt = Auth.createToken({ id: newUser.id, email: newUser.email });
+      return jwt;
     }
+
+    if (user.socialLogin === "Google" || user.socialLogin === "Linkedin") {
+      const jwt = Auth.createToken({ id: user.id, email: user.email });
+      return jwt;
+    }
+
     const password = Auth.matchPassword(data.password, user.password);
     if (!password) {
       throw new AppError("Invalid password", StatusCodes.BAD_REQUEST);
     }
+
     const jwt = Auth.createToken({ id: user.id, email: user.email });
     return jwt;
   } catch (error) {
