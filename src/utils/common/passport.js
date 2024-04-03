@@ -6,7 +6,7 @@ require("dotenv").config();
 const { ServerConfig } = require("../../config");
 const { UserService } = require("../../services");
 const { UserRepository } = require("../../repositories");
-const { ErrorResponse, Auth } = require("../common");
+const { ErrorResponse } = require("../common");
 const AppError = require("../errors/app-error");
 
 const userRepository = new UserRepository();
@@ -21,7 +21,7 @@ opts.secretOrKey = ServerConfig.JWT_SECRET;
 passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
-      const user = await UserService.getUser(jwt_payload.id);
+      const user = await UserService.getUser(jwt_payload.user.id);
       if (user) {
         return done(null, user);
       }
@@ -59,9 +59,9 @@ passport.use(
       callbackURL: process.env.NODE_ENV
         ? process.env.PROD_GOOGLE_CALL_BACK_URL
         : ServerConfig.GOOGLE_CALL_BACK_URL,
-      //passReqToCallback: true,
+      passReqToCallback: true,
     },
-    async function (accessToken, refreshToken, profile, cb) {
+    async function (req, accessToken, refreshToken, profile, cb) {
       try {
         let user = await userRepository.getUserByEmail(profile.emails[0].value);
 
@@ -85,8 +85,7 @@ passport.use(
           });
         }
 
-        const token = Auth.createToken({ id: user.id, email: user.email });
-        cb(null, token);
+        cb(null, user);
       } catch (error) {
         cb(error);
       }
@@ -95,7 +94,6 @@ passport.use(
 );
 
 var LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-
 passport.use(
   new LinkedInStrategy(
     {
@@ -129,11 +127,18 @@ passport.use(
           });
         }
 
-        const token = Auth.createToken({ id: user.id, email: user.email });
-        done(null, token);
+        done(null, user);
       } catch (error) {
         done(error);
       }
     }
   )
 );
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});

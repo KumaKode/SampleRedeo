@@ -1,31 +1,39 @@
 const { StatusCodes } = require("http-status-codes");
+const { otpGen } = require("otp-gen-agent");
 
 const { UserRepository, TypeRepository } = require("../repositories");
+
 const AppError = require("../utils/errors/app-error");
 const { Auth } = require("../utils/common");
+const otpService = require("./otp-service");
+const { createTemplate } = require("../utils/helpers/email-template");
 
 const userRepository = new UserRepository();
 const typeRepository = new TypeRepository();
 
 async function signup(data) {
   try {
+    const usr = await userRepository.getUserByEmail(data.email);
+    if (usr) throw new AppError("User already exists!", StatusCodes.CONFLICT);
     const user = await userRepository.create(data);
     const type = await typeRepository.getTypeByName("jobSeeker");
     user.addType(type);
+
+    const otp = await otpService.createOTP({
+      userId: user.id,
+      otp: await otpGen(),
+    });
+
+    const template = createTemplate({ name: user.name, otp: otp.otp });
+
+    await otpService.sendOTP({
+      email: user.email,
+      template: template,
+    });
+
     return user;
   } catch (error) {
-    console.log(error);
-    if (
-      error.name === "SequelizeValidationError" ||
-      error.name === "SequelizeUniqueConstraintError"
-    ) {
-      let explaination = [];
-      error.errors.forEach((err) => {
-        explaination.push(err.message);
-      });
-      throw new AppError(explaination, StatusCodes.BAD_REQUEST);
-    }
-
+    if (error instanceof AppError) throw error;
     throw new AppError(
       "Cannot create new user",
       StatusCodes.INTERNAL_SERVER_ERROR

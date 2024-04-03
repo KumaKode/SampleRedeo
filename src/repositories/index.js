@@ -4,4 +4,5 @@ module.exports = {
   CountryRepository: require("./country-repository"),
   CityRepository: require("./city-repository"),
   JobSeekerRepository: require("./jobseeker-repository"),
+  OTPRepository: require("./otp-repository"),
 };
