@@ -1,12 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
+const bcrypt = require("bcrypt");
 const { UserService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 async function signin(req, res) {
   try {
     const response = await UserService.signin({
+      name: req.body.given_name || "",
       email: req.body.email,
-      password: req.body.password,
+      password:
+        req.body.password ||
+        bcrypt.hashSync(data.sub, +ServerConfig.SALT_ROUNDS),
+      socialLogin: req.body.socialLogin || "Local",
+      profilePicture: req.body.picture || "",
     });
 
     SuccessResponse.data = response;

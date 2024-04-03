@@ -15,14 +15,14 @@ const typeRepository = new TypeRepository();
 async function signup(data) {
   try {
     let user;
-    if (data.socialLogin) {
+    if (data.socialLogin === "Google" || data.socialLogin === "Linkedin") {
       user = await userRepository.create({
-        name: data.given_name,
+        name: data.name,
         email: data.email,
-        password: bcrypt.hashSync(data.sub, +ServerConfig.SALT_ROUNDS),
+        password: data.password,
         emailVerified: true,
         socialLogin: data.socialLogin,
-        profilePicture: data.picture,
+        profilePicture: data.profilePicture,
       });
     } else {
       user = await userRepository.create(data);
