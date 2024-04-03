@@ -17,6 +17,9 @@ app.use(
     secret: ServerConfig.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+    },
   })
 );
 
