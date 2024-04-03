@@ -4,6 +4,7 @@ const { UserService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 async function signin(req, res) {
+  console.log(req.body);
   try {
     const response = await UserService.signin({
       name: req.body.given_name || "",
