@@ -30,7 +30,6 @@ async function getUser(req, res) {
 }
 
 module.exports = {
-  signup,
   signin,
   getUser,
 };
