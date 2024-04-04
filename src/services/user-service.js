@@ -15,7 +15,7 @@ const typeRepository = new TypeRepository();
 async function signup(data) {
   try {
     let user;
-    if (data.socialLogin === "Google" || data.socialLogin === "Linkedin") {
+    if (data.hasOwnProperty("socialLogin")) {
       user = await userRepository.create({
         name: data.name,
         email: data.email,
@@ -56,7 +56,6 @@ async function signup(data) {
 async function signin(data) {
   try {
     const user = await userRepository.getUserByEmail(data.email);
-
     if (!user) {
       const newUser = await signup(data);
       const jwt = Auth.createToken({ id: newUser.id, email: newUser.email });

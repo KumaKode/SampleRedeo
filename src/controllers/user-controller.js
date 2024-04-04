@@ -2,20 +2,19 @@ const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcrypt");
 const { UserService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
+const { ServerConfig } = require("../config");
 
 async function signin(req, res) {
-  console.log(req.body);
   try {
     const response = await UserService.signin({
       name: req.body.given_name || "",
       email: req.body.email,
       password:
         req.body.password ||
-        bcrypt.hashSync(data.sub, +ServerConfig.SALT_ROUNDS),
+        bcrypt.hashSync(req.body.sub, +ServerConfig.SALT_ROUNDS),
       socialLogin: req.body.socialLogin || "Local",
       profilePicture: req.body.picture || "",
     });
-
     SuccessResponse.data = response;
     return res.status(StatusCodes.CREATED).send(SuccessResponse);
   } catch (error) {

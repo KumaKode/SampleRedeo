@@ -24,6 +24,6 @@ app.use("*", (req, res) => {
 
 app.listen(ServerConfig.PORT, () => {
   console.log("Sucessfully started");
-  console.log(`Listening on port ${ServerConfig.PORT}`);
+  console.log(`Listening on port http://localhost:${ServerConfig.PORT}`);
   Logger.info("Successfully started the server");
 });
