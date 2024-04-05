@@ -3,7 +3,7 @@ import { AuthContext } from "../Context/AuthContext";
 import CONSTANTS from "../Constants/Constants";
 
 const SignUp = () => {
-  const { loginWithEmailAndPassword, loginWithGoogle } =
+  const { loginWithEmailAndPassword, loginWithGoogle, loginWithLinkedin } =
     useContext(AuthContext);
 
   const [email, setEmail] = useState("");
@@ -16,11 +16,13 @@ const SignUp = () => {
     setPassword("");
   };
 
-  const handleLinkedInCallback = () => {
+  const handleLinkedInCallback = async () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const code = urlParams.get("code");
-    if (code) return;
+    if (code) {
+      await loginWithLinkedin(code);
+    }
   };
 
   useEffect(() => {

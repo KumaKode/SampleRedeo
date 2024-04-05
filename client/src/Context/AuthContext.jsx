@@ -38,17 +38,26 @@ const AuthContextProvider = ({ children }) => {
     },
   });
 
-  // const loginWithLinkedin = async (code) => {
-  //   try {
-  //     const linkedinOAuthURL = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${
-  //       import.meta.env.VITE_LINKEDIN_CLIENT_ID
-  //     }&redirect_uri=${encodeURIComponent(
-  //       import.meta.env.VITE_LINKEDIN_CALLBACK_URL
-  //     )}&scope=profile%20email%20openid`;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const loginWithLinkedin = async (code) => {
+    try {
+      console.log(code);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/users/signin/linkedin`,
+        {
+          code,
+        }
+      );
+      if (response.data.success) {
+        setToken(response.data.data);
+        Cookies.set("jwtToken", response.data.data, { path: "/" });
+        navigate("/");
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const fetchGoogleProfile = async (token) => {
     try {
@@ -83,6 +92,7 @@ const AuthContextProvider = ({ children }) => {
   const value = {
     loginWithEmailAndPassword,
     loginWithGoogle,
+    loginWithLinkedin,
     token,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
