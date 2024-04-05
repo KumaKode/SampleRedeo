@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("jwtToken"));
+  const [linkedinCode, setLinkedinCode] = useState("");
   const navigate = useNavigate();
   const loginWithEmailAndPassword = async (email, password) => {
     try {
@@ -39,6 +40,7 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const loginWithLinkedin = async (code) => {
+    console.log(code);
     try {
       console.log(code);
       const response = await axios.post(
@@ -94,6 +96,8 @@ const AuthContextProvider = ({ children }) => {
     loginWithGoogle,
     loginWithLinkedin,
     token,
+    linkedinCode,
+    setLinkedinCode,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

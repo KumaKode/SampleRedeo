@@ -1,10 +1,15 @@
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import CONSTANTS from "../Constants/Constants";
 
 const SignUp = () => {
-  const { loginWithEmailAndPassword, loginWithGoogle, loginWithLinkedin } =
-    useContext(AuthContext);
+  const {
+    loginWithEmailAndPassword,
+    loginWithGoogle,
+    loginWithLinkedin,
+    setLinkedinCode,
+    linkedinCode,
+  } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,9 +26,16 @@ const SignUp = () => {
     const urlParams = new URLSearchParams(queryString);
     const code = urlParams.get("code");
     if (code) {
-      await loginWithLinkedin(code);
+      setLinkedinCode(code);
     }
   };
+
+  useCallback(() => {
+    const sendCode = async () => {
+      await loginWithLinkedin(linkedinCode);
+    };
+    sendCode();
+  }, [linkedinCode]);
 
   useEffect(() => {
     handleLinkedInCallback();
