@@ -196,6 +196,28 @@ async function isEmployer(id) {
   }
 }
 
+async function verifyEmail(data) {
+  try {
+    const user = await userRepository.get(data.id);
+    if (!user) {
+      throw new AppError("The requested user not found", StatusCodes.NOT_FOUND);
+    }
+    const otp = await otpService.getOTP(data.otp);
+    if (!otp) {
+      throw new AppError("The requested user not found", StatusCodes.NOT_FOUND);
+    }
+    await user.update({ emailVerified: true });
+    return user;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AppError) throw error;
+    throw new AppError(
+      "Something went wrong",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   signup,
   signin,
@@ -203,4 +225,5 @@ module.exports = {
   // isAuthenticated,
   isAdmin,
   isEmployer,
+  verifyEmail,
 };

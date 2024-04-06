@@ -66,6 +66,22 @@ async function getLinkedinProfile(code) {
   }
 }
 
+async function verifyEmail(req, res) {
+  try {
+    const user = await UserService.verifyEmail({
+      id: req.body.id,
+      otp: req.body.otp,
+    });
+    SuccessResponse.data = user;
+    SuccessResponse.message = "Email verified successfully!";
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
 async function getUser(req, res) {
   try {
     const user = await UserService.getUser(req.params.id);
@@ -81,4 +97,5 @@ async function getUser(req, res) {
 module.exports = {
   signin,
   getUser,
+  verifyEmail,
 };

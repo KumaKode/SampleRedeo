@@ -28,14 +28,19 @@ async function createOTP(data) {
   }
 }
 
-async function getOTP(id) {
+async function getOTP(otp) {
   try {
-    const otp = await otpRepository.get(id);
-    return otp;
-  } catch (error) {
-    if ((error.StatusCode = StatusCodes.NOT_FOUND)) {
-      throw new AppError("The requested otp not found", error.StatusCode);
+    const response = await otpRepository.getOTP(otp);
+    if (!response) {
+      throw new AppError("Not able to find the OTP!", StatusCodes.NOT_FOUND);
     }
+    return response;
+  } catch (error) {
+    if (error instanceof AppError) throw error;
+    throw new AppError(
+      "Something went wrong",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
   }
 }
 
@@ -68,8 +73,6 @@ async function sendOTP(data) {
     );
   }
 }
-
-async function verifyOTP(data) {}
 
 module.exports = {
   createOTP,
