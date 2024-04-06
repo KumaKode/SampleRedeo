@@ -6,7 +6,7 @@ require("dotenv").config();
 module.exports = {
   "development": {
     "username": "root",
-    "password": process.env.LOCAL_DB_PASSWORD || ServerConfig.LOCAL_DB_PASSWORD,
+    "password": ServerConfig.LOCAL_DB_PASSWORD,
     "database": "Redeo",
     "host": "127.0.0.1",
     "dialect": "mysql"
