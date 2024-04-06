@@ -1,4 +1,4 @@
-const { ServerConfig } = require("./server-config");
+const { LOCAL_DB_PASSWORD } = require("./server-config");
 
 require("dotenv").config();
 
@@ -6,7 +6,7 @@ require("dotenv").config();
 module.exports = {
   "development": {
     "username": "root",
-    "password": ServerConfig.LOCAL_DB_PASSWORD,
+    "password": LOCAL_DB_PASSWORD,
     "database": "Redeo",
     "host": "127.0.0.1",
     "dialect": "mysql"
