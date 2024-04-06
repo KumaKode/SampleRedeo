@@ -1,6 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
 const { otpGen } = require("otp-gen-agent");
-const bcrypt = require("bcrypt");
 
 const { UserRepository, TypeRepository } = require("../repositories");
 
@@ -33,17 +32,17 @@ async function signup(data) {
     const type = await typeRepository.getTypeByName("jobSeeker");
     user.addType(type);
 
-    // const otp = await otpService.createOTP({
-    //   userId: user.id,
-    //   otp: await otpGen(),
-    // });
+    const otp = await otpService.createOTP({
+      userId: user.id,
+      otp: await otpGen(),
+    });
 
-    // const template = createTemplate({ name: user.name, otp: otp.otp });
+    const template = createTemplate({ name: user.name, otp: otp.otp });
 
-    // await otpService.sendOTP({
-    //   email: user.email,
-    //   template: template,
-    // });
+    await otpService.sendOTP({
+      email: user.email,
+      template: template,
+    });
 
     return user;
   } catch (error) {
