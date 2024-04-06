@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { UserService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
 const { ServerConfig } = require("../config");
-
+const axios = require("axios");
 async function signin(req, res) {
   try {
     const response = await UserService.signin({
@@ -23,6 +23,38 @@ async function signin(req, res) {
   }
 }
 
+async function loginWithLinkedin(req, res) {
+  const { code } = req.body;
+  if (code) {
+    try {
+      const response = await axios.post(
+        "https://www.linkedin.com/oauth/v2/accessToken",
+        new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          redirect_uri: "http://localhost:5173",
+          client_id: process.env.LINKEDIN_KEY,
+          client_secret: process.env.LINKEDIN_SECRET,
+          scope: "profile email openid",
+        })
+      );
+      const access_token = response.data.access_token;
+      console.log(access_token);
+      const url =
+        "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName)";
+
+      const userprofile = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+      console.log(userprofile);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 async function getUser(req, res) {
   try {
     const user = await UserService.getUser(req.params.id);
@@ -38,4 +70,5 @@ async function getUser(req, res) {
 module.exports = {
   signin,
   getUser,
+  loginWithLinkedin,
 };

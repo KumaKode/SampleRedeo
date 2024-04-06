@@ -7,7 +7,6 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("jwtToken"));
-  const [linkedinCode, setLinkedinCode] = useState("");
   const navigate = useNavigate();
   const loginWithEmailAndPassword = async (email, password) => {
     try {
@@ -40,24 +39,27 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const loginWithLinkedin = async (code) => {
-    console.log(code);
-    try {
-      console.log(code);
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/signin/linkedin`,
-        {
-          code,
+    if (localStorage.getItem("code") == null) {
+      try {
+        console.log(code);
+        localStorage.setItem("code", code);
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/users/signin/linkedin`,
+          {
+            code,
+          }
+        );
+        if (response.data.success) {
+          setToken(response.data.data);
+          Cookies.set("jwtToken", response.data.data, { path: "/" });
+          localStorage.removeItem("code");
+          navigate("/");
+        } else {
+          console.log(response.data.message);
         }
-      );
-      if (response.data.success) {
-        setToken(response.data.data);
-        Cookies.set("jwtToken", response.data.data, { path: "/" });
-        navigate("/");
-      } else {
-        console.log(response.data.message);
+      } catch (error) {
+        console.log(error.message);
       }
-    } catch (error) {
-      console.log(error.message);
     }
   };
 
@@ -96,8 +98,6 @@ const AuthContextProvider = ({ children }) => {
     loginWithGoogle,
     loginWithLinkedin,
     token,
-    linkedinCode,
-    setLinkedinCode,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

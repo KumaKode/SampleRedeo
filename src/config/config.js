@@ -1,10 +1,12 @@
+const { ServerConfig } = require("./server-config");
+
 require("dotenv").config();
 
 // prettier-ignore
 module.exports = {
   "development": {
     "username": "root",
-    "password": process.env.LOCAL_DB_PASSWORD || "mysqa1122",
+    "password": process.env.LOCAL_DB_PASSWORD || ServerConfig.LOCAL_DB_PASSWORD,
     "database": "Redeo",
     "host": "127.0.0.1",
     "dialect": "mysql"
