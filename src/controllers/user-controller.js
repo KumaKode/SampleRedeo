@@ -4,8 +4,22 @@ const { UserService } = require("../services");
 const { SuccessResponse, ErrorResponse } = require("../utils/common");
 const { ServerConfig } = require("../config");
 const axios = require("axios");
+
 async function signin(req, res) {
   try {
+    if (req.body.code) {
+      const profile = await getLinkedinProfile(req.body.code);
+      const response = await UserService.signin({
+        name: profile.given_name,
+        email: profile.email,
+        password: bcrypt.hashSync(profile.sub, +ServerConfig.SALT_ROUNDS),
+        socialLogin: "Linkedin",
+        profilePicture: profile.picture,
+      });
+      SuccessResponse.data = response;
+      return res.status(StatusCodes.CREATED).send(SuccessResponse);
+    }
+
     const response = await UserService.signin({
       name: req.body.given_name || "",
       email: req.body.email,
@@ -23,35 +37,32 @@ async function signin(req, res) {
   }
 }
 
-async function loginWithLinkedin(req, res) {
-  const { code } = req.body;
-  if (code) {
-    try {
-      const response = await axios.post(
-        "https://www.linkedin.com/oauth/v2/accessToken",
-        new URLSearchParams({
-          grant_type: "authorization_code",
-          code,
-          redirect_uri: "http://localhost:5173",
-          client_id: process.env.LINKEDIN_KEY,
-          client_secret: process.env.LINKEDIN_SECRET,
-          scope: "profile email openid",
-        })
-      );
-      const access_token = response.data.access_token;
-      console.log(access_token);
-      const url =
-        "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName)";
+async function getLinkedinProfile(code) {
+  try {
+    const response = await axios.post(
+      "https://www.linkedin.com/oauth/v2/accessToken",
+      new URLSearchParams({
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: "http://localhost:5173",
+        client_id: process.env.LINKEDIN_KEY,
+        client_secret: process.env.LINKEDIN_SECRET,
+        scope: "profile email openid",
+      })
+    );
+    const access_token = response.data.access_token;
+    const url = "https://api.linkedin.com/v2/userinfo";
 
-      const userprofile = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      console.log(userprofile);
-    } catch (error) {
-      console.log(error);
-    }
+    const userprofile = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    console.log(userprofile.data);
+    return userprofile.data;
+  } catch (error) {
+    console.log(error);
+    return error.message;
   }
 }
 
@@ -70,5 +81,4 @@ async function getUser(req, res) {
 module.exports = {
   signin,
   getUser,
-  loginWithLinkedin,
 };

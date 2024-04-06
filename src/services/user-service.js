@@ -15,7 +15,7 @@ const typeRepository = new TypeRepository();
 async function signup(data) {
   try {
     let user;
-    if (data.hasOwnProperty("socialLogin")) {
+    if (data.socialLogin === "Linkedin" || data.socialLogin === "Google") {
       user = await userRepository.create({
         name: data.name,
         email: data.email,
@@ -27,6 +27,8 @@ async function signup(data) {
     } else {
       user = await userRepository.create(data);
     }
+
+    console.log(user);
 
     const type = await typeRepository.getTypeByName("jobSeeker");
     user.addType(type);
@@ -56,6 +58,7 @@ async function signup(data) {
 async function signin(data) {
   try {
     const user = await userRepository.getUserByEmail(data.email);
+
     if (!user) {
       const newUser = await signup(data);
       const jwt = Auth.createToken({ id: newUser.id, email: newUser.email });
@@ -63,6 +66,7 @@ async function signin(data) {
     }
 
     if (user.socialLogin === "Google" || user.socialLogin === "Linkedin") {
+      await user.update({ socialLogin: data.socialLogin });
       const jwt = Auth.createToken({ id: user.id, email: user.email });
       return jwt;
     }
@@ -71,6 +75,8 @@ async function signin(data) {
     if (!password) {
       throw new AppError("Invalid password", StatusCodes.BAD_REQUEST);
     }
+
+    await user.update({ socialLogin: "Local" });
 
     const jwt = Auth.createToken({ id: user.id, email: user.email });
     return jwt;

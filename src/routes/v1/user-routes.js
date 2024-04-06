@@ -7,7 +7,7 @@ const { UserMiddlewares } = require("../../middlewares");
 require("../../utils/common/passport");
 
 router.post("/signin/google", UserController.signin);
-router.post("/signin/linkedin", UserController.loginWithLinkedin);
+router.post("/signin/linkedin", UserController.signin);
 
 router.post(
   "/signin",
