@@ -23,6 +23,7 @@ import CompanyDetailsPage from "./Pages/CompanyDetailsPage";
 import PostJobPage from "./Pages/PostJobPage";
 import AddResumePage from "./Pages/AddResumePage";
 import SignUp from "./Pages/SignUp";
+import OTPVerification from "./Pages/OTPVerification";
 import { useEffect } from "react";
 import { AuthContext } from "./Context/AuthContext";
 function App() {
@@ -45,6 +46,16 @@ function App() {
         <Route
           path="/signup"
           element={token ? <Navigate to="/" replace={true} /> : <SignUp />}
+        />
+        <Route
+          path="/verify-email"
+          element={
+            token ? (
+              <OTPVerification />
+            ) : (
+              <Navigate to="/signup" replace={true} />
+            )
+          }
         />
         <Route path="/homePage2" element={<HomePage2 />} />
         <Route path="/jobPage" element={<JobPage />} />

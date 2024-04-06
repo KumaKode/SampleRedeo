@@ -11764,3 +11764,16 @@ a.meanmenu-reveal {
     padding: 0 30px;
   }
 }
+
+/* Customize CSS */
+.otp-letter-input {
+  width:50px;
+  height: 50px;
+  border: 1px solid #198754;
+  border-radius: 10px;
+  color: #198754;
+  font-size: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+
