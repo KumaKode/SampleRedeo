@@ -23,11 +23,10 @@ async function signup(data) {
         socialLogin: data.socialLogin,
         profilePicture: data.profilePicture,
       });
+      return user;
     } else {
       user = await userRepository.create(data);
     }
-
-    console.log(user);
 
     const type = await typeRepository.getTypeByName("jobSeeker");
     user.addType(type);
@@ -55,6 +54,7 @@ async function signup(data) {
 }
 
 async function signin(data) {
+  console.log(data)
   try {
     const user = await userRepository.getUserByEmail(data.email);
 
@@ -64,8 +64,8 @@ async function signin(data) {
       return jwt;
     }
 
-    if (user.socialLogin === "Google" || user.socialLogin === "Linkedin") {
-      await user.update({ socialLogin: data.socialLogin });
+    if (data.sub !== undefined) {
+      await user.update({ name: data.name, profilePicture: data.profilePicture, socialLogin: data.socialLogin });
       const jwt = Auth.createToken({ id: user.id, email: user.email });
       return jwt;
     }
@@ -130,7 +130,6 @@ async function getUser(id) {
 // }
 
 async function isAdmin(id) {
-  console.log(id);
   try {
     const user = await userRepository.get(id);
 

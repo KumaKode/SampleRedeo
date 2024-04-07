@@ -8,13 +8,13 @@ const OTPVerification = () => {
     const {value, maxLength} = e.target;
     const number = value.slice(0, maxLength);
     setOtp((prevState) => prevState + number );
-
-
   }
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    console.log(otp);
     await verifyOTP(otp);
+    setOtp("");
 
   }
   return (
@@ -56,7 +56,6 @@ const OTPVerification = () => {
               </div>
               </form>
             </div>
-
           </div>
         </div>
       </div>

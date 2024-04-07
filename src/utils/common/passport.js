@@ -20,7 +20,6 @@ opts.secretOrKey = ServerConfig.JWT_SECRET;
 
 passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
-    console.log(jwt_payload);
     try {
       const user = await UserService.getUser(jwt_payload.id);
       if (user) {

@@ -12,11 +12,12 @@ const AuthContextProvider = ({ children }) => {
 
   const getLoggedInUser  = async () => {
     try {
-      const response  = await axios.get(`${import.meta.env.VITE_API_URL}/users/profile`, {
+      const response  = await axios.get(`${import.meta.env.VITE_API_URL}/users/profile`, 
+      {
         headers: {
           Authorization: `Bearer ${Cookies.get("jwtToken")}`
         }
-      })
+      });
       if(response.data.success){
         setLoggedInUser(response.data.data);
         console.log(response.data.data);
@@ -34,6 +35,7 @@ const AuthContextProvider = ({ children }) => {
       console.log(error.message);
     }
   }
+
 
   const loginWithEmailAndPassword = async (email, password) => {
     try {
@@ -69,7 +71,6 @@ const AuthContextProvider = ({ children }) => {
   const loginWithLinkedin = async (code) => {
     if (localStorage.getItem("code") == null) {
       try {
-        console.log(code);
         localStorage.setItem("code", code);
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/users/signin/linkedin`,
@@ -144,13 +145,25 @@ const AuthContextProvider = ({ children }) => {
       console.log(error.message);
     }
   }
+
+  const logout = async () => {
+    try {
+      Cookies.remove('jwtToken');
+      setToken("");
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   const value = {
     loginWithEmailAndPassword,
     loginWithGoogle,
     loginWithLinkedin,
     loggeInUser,
     token,
-    verifyOTP
+    verifyOTP,
+    logout
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

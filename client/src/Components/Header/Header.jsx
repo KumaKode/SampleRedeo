@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../Context/JobContext";
-
+import { AuthContext } from "../../Context/AuthContext";
 const Header = () => {
   const { handleOpenForm, isSticky, handleOpen } = useContext(JobContext);
+  const { logout} = useContext(AuthContext);
   return (
     <header className="heater-transparent">
       <div
-        className={`jm-header-area header-sticky ${isSticky ? "sticky" : ""}`}
+        className={` jm-header-area header-sticky ${isSticky ? "sticky" : ""}`}
       >
         <div className="container">
           <div className="jm-header-top d-none d-md-block">
@@ -69,6 +70,7 @@ const Header = () => {
                       <li>
                         <Link to="/servicePage">Services</Link>
                       </li>
+                      
                       {/* <li>
                         <Link to="/serviceDetailsPage">Services Details</Link>
                       </li> */}
@@ -184,6 +186,12 @@ const Header = () => {
                   >
                     Post Job
                   </Link>
+                  <button
+                    onClick={async () => await logout()}
+                    className="jm-theme-btn d-none d-lg-block mx-2"
+                  >
+                    Logout
+                  </button>
                   <div
                     className="jm-navbar-mobile-sign side-toggle d-lg-none d-inline-block"
                     role="button"

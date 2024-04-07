@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../Context/JobContext";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Header2 = () => {
   const { handleOpenForm, isSticky, handleOpen } = useContext(JobContext);
+  const { logout} = useContext(AuthContext);
   return (
     <header className="heater-transparent">
       <div
@@ -144,6 +146,12 @@ const Header2 = () => {
                 >
                   Post Job
                 </Link>
+                <button
+                    onClick={async () => await logout()}
+                    className="jm-theme-btn d-none d-lg-block mx-2"
+                  >
+                    Logout
+                  </button>
                 <div
                   className="jm-navbar-mobile-sign side-toggle d-lg-none d-inline-block"
                   role="button"
