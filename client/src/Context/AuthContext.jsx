@@ -66,7 +66,6 @@ const AuthContextProvider = ({ children }) => {
         await fetchGoogleProfile(token);
       }
     },
-    redirect_uri:encodeURIComponent("https://sampleredeo-production.up.railway.app")
   });
 
   const loginWithLinkedin = async (code) => {

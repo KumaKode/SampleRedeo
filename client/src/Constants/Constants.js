@@ -1,4 +1,4 @@
-const LINKEDIN_CALLBACK_URL = encodeURIComponent("https://sampleredeo-production.up.railway.app");
+const LINKEDIN_CALLBACK_URL = "https://sampleredeo-production.up.railway.app";
 
 const CONSTANTS = {
   linkedinOAuthURL: `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${
