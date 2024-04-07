@@ -57,18 +57,25 @@ const Header = () => {
                 <div className="jm-header-main-menu text-center">
                   <nav className="jm-mobile-menu" id="jm-mobile-menu">
                     <ul>
-                      <li className="menu-has-children">
+                      <li className="">
                         <Link to="/">Home</Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/">Home 1</Link>
-                          </li>
-                          <li>
-                            <Link to="/homePage2">Home 2</Link>
-                          </li>
-                        </ul>
                       </li>
-                      <li className="menu-has-children">
+                      <li>
+                        <Link to="/aboutPage">About</Link>
+                      </li>
+                      <li>
+                        <Link to="/jobListPage">Jobs</Link>
+                      </li>
+                      <li>
+                        <Link to="/servicePage">Services</Link>
+                      </li>
+                      {/* <li>
+                        <Link to="/serviceDetailsPage">Services Details</Link>
+                      </li> */}
+                      <li>
+                        <Link to="/contactPage">Contact</Link>
+                      </li>
+                      {/* <li className="menu-has-children">
                         <Link to="/jobPage">Jobs</Link>
                         <ul className="sub-menu">
                           <li>
@@ -153,7 +160,7 @@ const Header = () => {
                             <Link to="/blogDetailsPage">Blog Details</Link>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
                     </ul>
                   </nav>
                 </div>

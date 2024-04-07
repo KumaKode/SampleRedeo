@@ -1,7 +1,8 @@
-import React from "react";
+import {useContext} from "react";
 import { Link } from "react-router-dom";
-
+import { AuthContext } from "../../Context/AuthContext";
 const SingleCandidate = () => {
+  const {loggeInUser} = useContext(AuthContext);
   return (
     <div className="jm-candidate-area pt-100 pb-60">
       <div className="container">
@@ -9,8 +10,8 @@ const SingleCandidate = () => {
           <div className="col-lg-4 order-1 order-lg-0">
             <div className="jm-candidate-author-wrapper mr-25 mb-40">
               <div className="jm-candidate-avater-portion">
-                <img src="static/assets/img/blog/admin-3.jpg" alt="img" />
-                <h4 className="jm-candidate-avater-name">Mikel Jackson</h4>
+                <img src={loggeInUser.profilePicture ? loggeInUser.profilePicture : "static/assets/img/blog/admin-3.jpg"} alt="img" />
+                <h4 className="jm-candidate-avater-name">{loggeInUser.name ? loggeInUser.name :  "Mikel Jackson"}</h4>
                 <span className="jm-candidate-designation">
                   Creative Designer
                 </span>
@@ -121,7 +122,7 @@ const SingleCandidate = () => {
                   milestones, deadlines and fast work. Patience. Infinite
                   patience. No shortcuts. Even if the client is being careless.
                   Some quick example text to build on the card title and bulk
-                  the card's content Moltin gives you platform. As a highly
+                  the cards content Moltin gives you platform. As a highly
                   skilled and successfull product development and design
                   specialist with more than 4 Years of My experience lies in
                   successfully conceptualizing, designing, and modifying
