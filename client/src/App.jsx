@@ -1,9 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import HomePage1 from "./Pages/HomePage1";
 import JobPage from "./Pages/JobPage";
 import CandidatePage from "./Pages/CandidatePage";
@@ -26,10 +22,13 @@ import EmployerGridPage from "./Pages/EmployerGridPage";
 import CompanyDetailsPage from "./Pages/CompanyDetailsPage";
 import PostJobPage from "./Pages/PostJobPage";
 import AddResumePage from "./Pages/AddResumePage";
+import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import OTPVerification from "./Pages/OTPVerification";
 import { useEffect } from "react";
-
+import { AuthContext } from "./Context/AuthContext";
 function App() {
+  const { token } = useContext(AuthContext);
   const ScrollToTop = () => {
     const { pathname } = useLocation();
 
@@ -39,11 +38,30 @@ function App() {
 
     return null;
   };
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage1 />} />
+        <Route
+          path="/signin"
+          element={token ? <Navigate to="/" replace={true} /> : <SignIn />}
+        />
+        <Route
+          path="/verify-email"
+          element={
+            token ? (
+              <OTPVerification />
+            ) : (
+              <Navigate to="/signup" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/signup"
+          element={token ? <Navigate to="/" replace={true} /> : <SignUp />}
+        />
         <Route path="/homePage2" element={<HomePage2 />} />
         <Route path="/jobPage" element={<JobPage />} />
         <Route path="/jobListPage" element={<JobListPage />} />
@@ -52,7 +70,6 @@ function App() {
         <Route path="/employerListPage" element={<EmployerListPage />} />
         <Route path="/employerGridPage" element={<EmployerGridPage />} />
         <Route path="/companyDetailsPage" element={<CompanyDetailsPage />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/postJobPage" element={<PostJobPage />} />
         <Route path="/addResumePage" element={<AddResumePage />} />
         <Route path="/candidatePage" element={<CandidatePage />} />
@@ -66,11 +83,17 @@ function App() {
         <Route path="/candidateListPage" element={<CandidateListPage />} />
         <Route
           path="/candidateDetailsPage"
-          element={<CandidateDetailsPage />}
+          element={
+            token ? (
+              <CandidateDetailsPage />
+            ) : (
+              <Navigate to="/signup" replace={true} />
+            )
+          }
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 

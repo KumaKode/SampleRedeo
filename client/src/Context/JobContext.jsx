@@ -6,6 +6,7 @@ const JobContext = createContext();
 const JobContextProvider = ({ children }) => {
   // Search Form
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [linkedinProfile, setLinkedinProfile] = useState({});
 
   const handleOpenForm = () => {
     setIsFormOpen(true);
@@ -115,6 +116,8 @@ const JobContextProvider = ({ children }) => {
         sidePanelOpen,
         handleOpen,
         handleClose,
+        linkedinProfile,
+        setLinkedinProfile,
       }}
     >
       {children}

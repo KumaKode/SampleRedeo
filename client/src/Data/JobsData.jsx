@@ -1,7 +1,7 @@
 const jobs = [
   {
     id: 1,
-    imgSrc: "assets/img/job/google.png",
+    imgSrc: "static/assets/img/job/google.png",
     jobTitle: "Web Development",
     company: "Google",
     location: "Mountain",
@@ -12,7 +12,7 @@ const jobs = [
   },
   {
     id: 2,
-    imgSrc: "assets/img/job/apple.png",
+    imgSrc: "static/assets/img/job/apple.png",
     jobTitle: "IOS Developer",
     company: "Apple",
     location: "Cupertino",
@@ -23,7 +23,7 @@ const jobs = [
   },
   {
     id: 3,
-    imgSrc: "assets/img/job/starbuck.png",
+    imgSrc: "static/assets/img/job/starbuck.png",
     jobTitle: "Finance Manager",
     company: "Starbucks",
     location: "California",
@@ -34,7 +34,7 @@ const jobs = [
   },
   {
     id: 4,
-    imgSrc: "assets/img/job/meta.png",
+    imgSrc: "static/assets/img/job/meta.png",
     jobTitle: "Digital Marketing",
     company: "Meta",
     location: "Menlo",
@@ -45,7 +45,7 @@ const jobs = [
   },
   {
     id: 5,
-    imgSrc: "assets/img/job/volkswagen.png",
+    imgSrc: "static/assets/img/job/volkswagen.png",
     jobTitle: "Account Manager",
     company: "Volkswagen",
     location: "Wolfsburg",
@@ -63,11 +63,11 @@ const jobs = [
     postedTime: "3 days ago",
     jobTime: "Part Time",
     vacancies: 8,
-    imgSrc: "assets/img/job/nike.png",
+    imgSrc: "static/assets/img/job/nike.png",
   },
   {
     id: 7,
-    imgSrc: "assets/img/job/microsoft.png",
+    imgSrc: "static/assets/img/job/microsoft.png",
     jobTitle: "Software Engineer",
     company: "Microsoft",
     location: "Redmond",
@@ -78,7 +78,7 @@ const jobs = [
   },
   {
     id: 8,
-    imgSrc: "assets/img/job/amazon.png",
+    imgSrc: "static/assets/img/job/amazon.png",
     jobTitle: "Product Manager",
     company: "Amazon",
     location: "Seattle",
@@ -91,34 +91,34 @@ const jobs = [
 const tabPanes = [
   {
     title: "Web Development",
-    image: "assets/img/services/service-details-1.jpg",
+    image: "static/assets/img/services/service-details-1.jpg",
   },
   {
     title: "Digital Marketing",
-    image: "assets/img/services/service-details-2.jpg",
+    image: "static/assets/img/services/service-details-2.jpg",
   },
   {
     title: "Human Resources",
-    image: "assets/img/services/service-details-3.jpg",
+    image: "static/assets/img/services/service-details-3.jpg",
   },
   {
     title: "Project Management",
-    image: "assets/img/services/service-details-4.jpg",
+    image: "static/assets/img/services/service-details-4.jpg",
   },
   {
     title: "Software Developer",
-    image: "assets/img/services/service-details-5.jpg",
+    image: "static/assets/img/services/service-details-5.jpg",
   },
   {
     title: "Mobile Apps Developer",
-    image: "assets/img/services/service-details-6.jpg",
+    image: "static/assets/img/services/service-details-6.jpg",
   },
 ];
 const candidates = [
   {
     id: 1,
     name: "Alfread Bonaport",
-    image: "assets/img/team/1.jpg",
+    image: "static/assets/img/team/1.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",
@@ -126,7 +126,7 @@ const candidates = [
   {
     id: 2,
     name: "Micheal Tevaz",
-    image: "assets/img/team/2.jpg",
+    image: "static/assets/img/team/2.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",
@@ -134,7 +134,7 @@ const candidates = [
   {
     id: 3,
     name: "Micheal Smith",
-    image: "assets/img/team/6.jpg",
+    image: "static/assets/img/team/6.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",
@@ -142,7 +142,7 @@ const candidates = [
   {
     id: 4,
     name: "Maria Bonaport",
-    image: "assets/img/team/5.jpg",
+    image: "static/assets/img/team/5.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",
@@ -150,7 +150,7 @@ const candidates = [
   {
     id: 5,
     name: "Alfread Bonaport",
-    image: "assets/img/team/3.jpg",
+    image: "static/assets/img/team/3.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",
@@ -158,7 +158,7 @@ const candidates = [
   {
     id: 6,
     name: "Jimmy Doe",
-    image: "assets/img/team/4.jpg",
+    image: "static/assets/img/team/4.jpg",
     position: "Market Analyst",
     workExp: "11 Years",
     location: "Washington, USA",

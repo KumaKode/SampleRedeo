@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Tab, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { tabPanes } from '../../Data/JobsData';
+import React, { useState } from "react";
+import { Tab, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { tabPanes } from "../../Data/JobsData";
 const ServiceDetails = () => {
-  const [activeTab, setActiveTab] = useState('Web Development');
+  const [activeTab, setActiveTab] = useState("Web Development");
 
   const handleTabSelect = (tab) => {
     setActiveTab(tab);
@@ -27,7 +27,9 @@ const ServiceDetails = () => {
                       <Nav.Item key={tabPane.title}>
                         <Nav.Link
                           eventKey={tabPane.title}
-                          className={activeTab === tabPane.title ? 'active' : ''}
+                          className={
+                            activeTab === tabPane.title ? "active" : ""
+                          }
                         >
                           {tabPane.title}
                         </Nav.Link>
@@ -36,16 +38,17 @@ const ServiceDetails = () => {
                   </Nav>
                   <div className="jm-service-details-tap-bottom">
                     <div className="inner-img">
-                      <img src="assets/img/services/icon.png" alt="" />
+                      <img src="static/assets/img/services/icon.png" alt="" />
                     </div>
                     <div className="inner-content">
                       <h3 className="title">{activeTab}</h3>
                       <p className="text">
-                        There are many variations of passages of Lorem Ipsum Fasts are many variation
-                        passages of humour.
+                        There are many variations of passages of Lorem Ipsum
+                        Fasts are many variation passages of humour.
                       </p>
                       <Link className="read-btn" to="/jobDetailsPage">
-                        Read More <i className="fa-thin fa-arrow-right-long"></i>
+                        Read More{" "}
+                        <i className="fa-thin fa-arrow-right-long"></i>
                       </Link>
                     </div>
                   </div>
@@ -63,15 +66,18 @@ const ServiceDetails = () => {
                             <img src={tabPane.image} alt="" />
                           </div>
                           <p className="jm-text mb-10">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry...
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry...
                           </p>
                           <p className="jm-text mb-0">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry
-                            orem Ipsum has been the industry's standard dummy text ever since the
-                            when an unknown printer took a galley of type and scrambled it to make a
-                            type specimen book. It has survived not only five centuries, but also
-                            the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in.
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry orem Ipsum has been the
+                            industry's standard dummy text ever since the when
+                            an unknown printer took a galley of type and
+                            scrambled it to make a type specimen book. It has
+                            survived not only five centuries, but also the leap
+                            into electronic typesetting, remaining essentially
+                            unchanged. It was popularised in.
                           </p>
                         </div>
                       </Tab.Pane>

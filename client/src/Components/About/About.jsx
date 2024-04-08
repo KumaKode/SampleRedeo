@@ -49,7 +49,7 @@ const About = () => {
           <div className="col-xl-6 col-lg-6  order-0 order-lg-1">
             <div className="jm-about-img-2 jm-about-img-relative w_img mb-40">
               <img
-                src="assets/img/about/home-2-about-1.png"
+                src="static/assets/img/about/home-2-about-1.png"
                 alt="Image Not Found"
               />
               <div className="jm-about-experience-year">
