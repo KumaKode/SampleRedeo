@@ -46,7 +46,7 @@ async function getLinkedinProfile(code) {
       new URLSearchParams({
         grant_type: "authorization_code",
         code,
-        redirect_uri: "http://localhost:5173",
+        redirect_uri: process.env.LINKEDIN_CALL_BACK_URL,
         client_id: process.env.LINKEDIN_KEY,
         client_secret: process.env.LINKEDIN_SECRET,
         scope: "profile email openid",
