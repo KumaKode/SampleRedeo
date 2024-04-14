@@ -40,12 +40,13 @@ async function signin(req, res) {
 }
 
 async function getLinkedinProfile(code) {
+  console.log(code);
   try {
     const response = await axios.post(
       "https://www.linkedin.com/oauth/v2/accessToken",
       new URLSearchParams({
         grant_type: "authorization_code",
-        code,
+        code:code,
         redirect_uri: process.env.LINKEDIN_CALL_BACK_URL,
         client_id: process.env.LINKEDIN_KEY,
         client_secret: process.env.LINKEDIN_SECRET,
@@ -62,7 +63,7 @@ async function getLinkedinProfile(code) {
     });
     return userprofile.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return error.message;
   }
 }
