@@ -10,7 +10,7 @@ async function signin(req, res) {
     if (req.body.code) {
       const profile = await getLinkedinProfile(req.body.code);
       const response = await UserService.signin({
-        sub: req.body.sub,
+        sub: profile.sub,
         name: profile.given_name,
         email: profile.email,
         password: bcrypt.hashSync(profile.sub, +ServerConfig.SALT_ROUNDS),
@@ -63,7 +63,7 @@ async function getLinkedinProfile(code) {
     });
     return userprofile.data;
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     return error.message;
   }
 }
