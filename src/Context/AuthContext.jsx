@@ -67,6 +67,8 @@ const AuthContextProvider = ({ children }) => {
         await fetchGoogleProfile(token);
       }
     },
+    hosted_domain:"https://sampleredeo-production.up.railway.app",
+    redirect_uri:"https://sampleredeo-production.up.railway.app"
   });
 
   const loginWithLinkedin = async (code) => {
@@ -79,6 +81,7 @@ const AuthContextProvider = ({ children }) => {
             code,
           }
         );
+        console.log("Request Send:", code);
         if (response.data.success) {
           setToken(response.data.data);
           Cookies.set("jwtToken", response.data.data, { path: "/" });
@@ -150,6 +153,7 @@ const AuthContextProvider = ({ children }) => {
   const logout = async () => {
     try {
       Cookies.remove('jwtToken');
+      localStorage.removeItem("code");
       setToken("");
       navigate('/');
     } catch (error) {
