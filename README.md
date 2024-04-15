@@ -12,7 +12,7 @@ Before you begin, ensure you have the following installed:
 
 ## Installation
 
-To install the required Node modules, follow these steps:
+To install the required Node modules, follow these steps
 
 ### Client
 
