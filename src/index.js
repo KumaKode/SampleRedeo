@@ -17,7 +17,6 @@ app.use(passport.initialize());
 app.use("/api", apiRoutes);
 
 app.use("/static", express.static(path.join(__dirname, "static")));
-
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "static/index.html"));
 });

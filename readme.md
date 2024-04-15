@@ -1,54 +1,43 @@
-# Job Portal Backend App
+# Redo (Job Portal)
 
-This is the backend code for the job portal application, built using Node.js, Express.js, Sequelize. The application provides a backend infrastructure for managing job listings, users, and other related functionalities.
+## Description
 
-## Structure
+The job portal project aims to create a platform where job seekers can find relevant job opportunities and employers can connect with potential candidates. The project includes features such as user registration and login, job searching and filtering, job application submission, and employer job posting. Additionally, the platform offers features like resume uploading, profile creation, and notifications for job seekers, while employers have access to candidate profiles and application management tools.
 
-The project is divided into following folders:
+## Prerequisites
 
-`src` -> Inside the src folder all the actual backend source code regarding the project will reside, this will not include any kind of tests. (You might want to make separate tests folder)
+Before you begin, ensure you have the following installed:
 
-Lets take a look inside the `src` folder
+- Node.js: [Download Node.js](https://nodejs.org/)
 
-- `config` -> In this folder anything and everything regarding any configurations or setup of a library or module will be done. For example: setting up `dotenv` so that we can use the environment variables anywhere in a cleaner fashion, this is done in the `server-config.js`. One more example can be to setup you logging library that can help you to prepare meaningful logs, so configuration for this library should also be done here.
-- `routes` -> In the routes folder, we register a route and the corresponding middleware and controllers to it.
-- `middlewares` -> they are just going to intercept the incoming requests where we can write our validators, authenticators etc.
-- `migrations` -> this folder contains all the migrations for the database.
-- `models` -> this folder contains all the models for the database, each model represents an entity in the database.
-- `seeders` -> This folder has the dummy data for the tables to be inserted when they are created initially.
-- `controllers` -> they are kind of the last middlewares as post them you call you business layer to execute the budiness logic. In controllers we just receive the incoming requests and data and then pass it to the business layer, and once business layer returns an output, we structure the API response in controllers and send the output.
-- `repositories` -> this folder contains all the logic using which we interact the DB by writing queries, all the raw queries or ORM queries will go here.
-- `services` -> contains the buiness logic and interacts with repositories for data from the database
-- `utils` -> contains helper methods, error classes etc.
+## Installation
 
-## Setup the project
+To install the required Node modules, follow these steps:
 
-1. Clone the repository and open it in your favourite text editor.
-2. Inside the root folder, execute the following command:
+### Client
 
-   ```
-     npm install
-   ```
+1. Open a terminal and navigate to the `client` directory.
+2. Run the following command to install dependencies:
 
-3. In the root directory create a `.env` file and add the following env variables
+   npm install
 
-   ```
-     PORT
-     SALT_ROUNDS
-     JWT_SECRET
-     JWT_EXPIRY
-     GOOGLE_CLIENT_ID
-     GOOGLE_CLIENT_SECRET
-     GOOGLE_CALL_BACK_URL
-     LINKEDIN_KEY
-     LINKEDIN_SECRET
-     LINKEDIN_CALLBACK_URL
-     LOCAL_DB_PASSWORD
+Running the front-end Server
 
-   ```
+1. Open a terminal and navigate to the `client` directory.
+2. Run the following command to run the server:
 
-4. To run the server execute
-
-   ```
    npm run dev
-   ```
+
+### Server
+
+1. Open a terminal and navigate to the `server` directory.
+2. Run the following command to install dependencies:
+
+   npm install
+
+Running the backen-end Server
+
+1. Open a terminal and navigate to the `server` directory.
+2. Run the following command to run the server:
+
+   npm run dev
