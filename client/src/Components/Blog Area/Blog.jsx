@@ -20,7 +20,10 @@ const Blog = () => {
             <div className="jm-blog-item jm-blog-layout-2 mb-55">
               <div className="jm-blog-item-img w_img">
                 <Link to="/blogDetailsPage">
-                  <img src="assets/img/blog/1.jpg" alt="Image Not Found" />
+                  <img
+                    src="static/assets/img/blog/1.jpg"
+                    alt="Image Not Found"
+                  />
                 </Link>
                 <div className="jm-blog-date">
                   <h6>23</h6>
@@ -55,7 +58,10 @@ const Blog = () => {
             <div className="jm-blog-item jm-blog-layout-2 mb-55">
               <div className="jm-blog-item-img w_img">
                 <Link to="/blogDetailsPage">
-                  <img src="assets/img/blog/2.jpg" alt="Image Not Found" />
+                  <img
+                    src="static/assets/img/blog/2.jpg"
+                    alt="Image Not Found"
+                  />
                 </Link>
                 <div className="jm-blog-date">
                   <h6>23</h6>
@@ -90,7 +96,10 @@ const Blog = () => {
             <div className="jm-blog-item jm-blog-layout-2 mb-55">
               <div className="jm-blog-item-img w_img">
                 <Link to="/blogDetailsPage">
-                  <img src="assets/img/blog/3.jpg" alt="Image Not Found" />
+                  <img
+                    src="static/assets/img/blog/3.jpg"
+                    alt="Image Not Found"
+                  />
                 </Link>
                 <div className="jm-blog-date">
                   <h6>23</h6>

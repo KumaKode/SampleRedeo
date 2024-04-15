@@ -25,12 +25,12 @@ const Banner = () => {
               <div className="jm-banner-img">
                 <img
                   className="jm-banner-bg-1"
-                  src="assets/img/banner/banner-img-bg-1.png"
+                  src="static/assets/img/banner/banner-img-bg-1.png"
                   alt=""
                 />
                 <img
                   className="jm-banner-img-1"
-                  src="assets/img/banner/banner-21.png"
+                  src="static/assets/img/banner/banner-21.png"
                   alt=""
                 />
               </div>

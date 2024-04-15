@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../Context/JobContext";
-
+import { AuthContext } from "../../Context/AuthContext";
 const Header = () => {
   const { handleOpenForm, isSticky, handleOpen } = useContext(JobContext);
+  const { logout} = useContext(AuthContext);
   return (
     <header className="heater-transparent">
       <div
-        className={`jm-header-area header-sticky ${isSticky ? "sticky" : ""}`}
+        className={` jm-header-area header-sticky ${isSticky ? "sticky" : ""}`}
       >
         <div className="container">
           <div className="jm-header-top d-none d-md-block">
@@ -47,7 +48,7 @@ const Header = () => {
                 <div className="jm-header-logo">
                   <Link className="jm-logo" to="/">
                     <img
-                      src="assets/img/logo/logo.png"
+                      src="static/assets/img/logo/logo.png"
                       alt="Image Not Fouund"
                     />
                   </Link>
@@ -57,18 +58,26 @@ const Header = () => {
                 <div className="jm-header-main-menu text-center">
                   <nav className="jm-mobile-menu" id="jm-mobile-menu">
                     <ul>
-                      <li className="menu-has-children">
+                      <li className="">
                         <Link to="/">Home</Link>
-                        <ul className="sub-menu">
-                          <li>
-                            <Link to="/">Home 1</Link>
-                          </li>
-                          <li>
-                            <Link to="/homePage2">Home 2</Link>
-                          </li>
-                        </ul>
                       </li>
-                      <li className="menu-has-children">
+                      <li>
+                        <Link to="/aboutPage">About</Link>
+                      </li>
+                      <li>
+                        <Link to="/jobListPage">Jobs</Link>
+                      </li>
+                      <li>
+                        <Link to="/servicePage">Services</Link>
+                      </li>
+                      
+                      {/* <li>
+                        <Link to="/serviceDetailsPage">Services Details</Link>
+                      </li> */}
+                      <li>
+                        <Link to="/contactPage">Contact</Link>
+                      </li>
+                      {/* <li className="menu-has-children">
                         <Link to="/jobPage">Jobs</Link>
                         <ul className="sub-menu">
                           <li>
@@ -93,9 +102,6 @@ const Header = () => {
                             <Link to="/companyDetailsPage">
                               Employer Details
                             </Link>
-                          </li>
-                          <li>
-                            <Link to="/signup">SignUp</Link>
                           </li>
                           <li>
                             <Link to="/postJobPage">Post a Job</Link>
@@ -138,6 +144,9 @@ const Header = () => {
                           <li>
                             <Link to="/contactPage">Contact</Link>
                           </li>
+                          <li>
+                            <Link to="/signup">SignUp</Link>
+                          </li>
                         </ul>
                       </li>
                       <li className="menu-has-children">
@@ -153,7 +162,7 @@ const Header = () => {
                             <Link to="/blogDetailsPage">Blog Details</Link>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
                     </ul>
                   </nav>
                 </div>
@@ -177,6 +186,12 @@ const Header = () => {
                   >
                     Post Job
                   </Link>
+                  <button
+                    onClick={async () => await logout()}
+                    className="jm-theme-btn d-none d-lg-block mx-2"
+                  >
+                    Logout
+                  </button>
                   <div
                     className="jm-navbar-mobile-sign side-toggle d-lg-none d-inline-block"
                     role="button"

@@ -1,8 +1,8 @@
 import React from "react";
 
 //Import Image
-import lightLogo from "../../assets/images/logo-light.png";
-import darkLogo from "../../assets/images/logo-dark.png";
+import lightLogo from "../../static/assets/images/logo-light.png";
+import darkLogo from "../../static/assets/images/logo-dark.png";
 
 import resetPasswordImage from "../../assets/images/auth/reset-password.png";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";

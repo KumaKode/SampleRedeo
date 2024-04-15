@@ -66,17 +66,17 @@ const AboutArea = () => {
             <div className="jm-about-img ml-40 mb-50">
               <img
                 className="jm-img-1"
-                src="assets/img/about/home-1-about-1.jpg"
+                src="static/assets/img/about/home-1-about-1.jpg"
                 alt=""
               />
               <img
                 className="jm-img-2"
-                src="assets/img/about/home-1-about-2.jpg"
+                src="static/assets/img/about/home-1-about-2.jpg"
                 alt=""
               />
               <img
                 className="jm-img-3"
-                src="assets/img/about/home-1-about-3.jpg"
+                src="static/assets/img/about/home-1-about-3.jpg"
                 alt=""
               />
             </div>

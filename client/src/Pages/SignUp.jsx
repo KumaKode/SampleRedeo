@@ -1,4 +1,24 @@
+import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { Link } from "react-router-dom";
+import CONSTANTS from "../Constants/Constants";
+
+
 const SignUp = () => {
+  const { loginWithEmailAndPassword, loginWithGoogle } =
+    useContext(AuthContext);
+
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await loginWithEmailAndPassword(email, password, fullname);
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <>
       <section className="min-vh-100 w-100 d-flex justify-content-center align-items-center">
@@ -8,14 +28,14 @@ const SignUp = () => {
               <div className="mb-5">
                 <h2 className="display-5 fw-bold text-center">
                   <img
-                    src="assets/img/logo/logo.png"
+                    src="static/assets/img/logo/logo.png"
                     width={300}
                     height={100}
                   />
                 </h2>
-                {/* <p className="text-center m-0">
-                  Already have an account? <a href="#!">Sign in</a>
-                </p> */}
+                <p className="text-center m-0">
+                  Already have an account? <Link to="/signIn">Sign in</Link>
+                </p>
               </div>
             </div>
           </div>
@@ -23,17 +43,36 @@ const SignUp = () => {
             <div className="col-12 col-lg-10 col-xl-8">
               <div className="row gy-5 justify-content-center">
                 <div className="col-12 col-lg-5">
-                  <form action="#!">
+                  <form onSubmit={handleSubmit}>
                     <div className="row gy-3 overflow-hidden">
+                    <div className="col-12">
+                        <div className="form-floating mb-2">
+                          <input
+                            type="text"
+                            className="form-control "
+                            name="fullname"
+                            id="fullname"
+                            value={fullname}
+                            placeholder="John Doe"
+                            required
+                            onChange={(e) => setFullName(e.target.value)}
+                          />
+                          <label htmlFor="fullname" className="form-label">
+                            Full Name
+                          </label>
+                        </div>
+                      </div>
                       <div className="col-12">
-                        <div className="form-floating mb-3">
+                        <div className="form-floating mb-2">
                           <input
                             type="email"
                             className="form-control "
                             name="email"
                             id="email"
+                            value={email}
                             placeholder="name@example.com"
                             required
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                           <label htmlFor="email" className="form-label">
                             Email
@@ -41,13 +80,15 @@ const SignUp = () => {
                         </div>
                       </div>
                       <div className="col-12">
-                        <div className="form-floating mb-3">
+                        <div className="form-floating mb-2">
                           <input
                             type="password"
                             className="form-control  "
                             name="password"
                             id="password"
                             placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                           />
                           <label htmlFor="password" className="form-label">
@@ -91,7 +132,7 @@ const SignUp = () => {
                             className="btn btn-lg signin-btn   fs-6"
                             type="submit"
                           >
-                            Sign up
+                            Create Account
                           </button>
                         </div>
                       </div>
@@ -119,8 +160,8 @@ const SignUp = () => {
                 </div>
                 <div className="col-12 col-lg-5 d-flex align-items-center">
                   <div className="d-flex gap-3 flex-column w-100 ">
-                    <a
-                      href="#!"
+                    <button
+                      onClick={loginWithGoogle}
                       className="btn bsb-btn-2xl d-flex align-items-center"
                     >
                       <svg
@@ -151,9 +192,9 @@ const SignUp = () => {
                       <span className="ms-2 fs-6 flex-grow-1">
                         Continue with Google
                       </span>
-                    </a>
+                    </button>
                     <a
-                      href="#!"
+                      href={CONSTANTS.linkedinOAuthURL}
                       className="btn bsb-btn-2xl  d-flex align-items-center"
                     >
                       <svg
